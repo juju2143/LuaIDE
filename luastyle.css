@@ -1,0 +1,190 @@
+/*
+    LuaIDE - A Lua IDE made in HTML5
+    Copyright (C) 2013 Julien "Juju" Savard
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+@font-face
+{
+	font-family: CasioPrizmMini;
+	src: url('http://juju2143.ca/CasioPrizmMini.ttf');
+}
+
+body
+{
+	background: black url("http://lua-users.org/files/wiki_insecure/lua-icons-png/lua-256x256.png") no-repeat center;
+	color: white;
+	margin: 0;
+	font-family: "MS Sans Serif", Tahoma, sans-serif;
+	font-size: 10pt;
+}
+.term
+{
+	font-family: monospace;
+}
+.termReverse
+{
+	font-family: monospace;
+	background-color: white;
+	color: black;
+}
+canvas
+{
+	background: #FFFFFF;
+	border: 1px solid #555555;
+}
+#editor
+{
+	width: 620px;
+	height: 400px;
+}
+
+.window {
+  background-color: #c0c0c0;
+/*  border-color: #f0f0f0 #606060 #404040 #d0d0d0;
+  border-style: solid;
+  border-width: 2px;*/
+  margin: 0px;
+  padding: 2px;
+  position: absolute;
+  text-align: left;
+  visibility: hidden;
+}
+
+.titleBar {
+  background-color: #008080;
+  cursor: default;
+  color: #ffffff;
+  font-family: "MS Sans Serif", "Arial", "Helvetica", sans-serif;
+  font-size: 8pt;
+  font-weight: bold;
+  margin: 0px;
+  padding: 2px 2px 2px .5em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.titleBarText {
+  float: left;
+  overflow: hidden;
+  text-align: left;
+}
+
+.titleBarButtons {
+  border-style: none;
+  border-width: 0px;
+  vertical-align: middle;
+  width: 50px;
+  height: 14px;
+}
+
+.clientArea {
+/*  background-color: #ffffff;
+  border-color: #404040 #e0e0e0 #f0f0f0 #505050;
+  border-style: solid;
+  border-width: 2px;
+  color: #000000;
+  font-family: "Arial", "Helvetica", sans-serif;
+  font-size: 10pt;
+  margin: 2px 0px 0px 0px;
+  overflow: auto;
+  padding: .5em;*/
+}
+
+div.menuBar,
+div.menuBar a.menuButton,
+div.menu,
+div.menu a.menuItem {
+  font-family: "MS Sans Serif", Arial, sans-serif;
+  font-size: 8pt;
+  font-style: normal;
+  font-weight: normal;
+  color: #000000;
+}
+
+div.menuBar {
+  background-color: #d0d0d0;
+  border-bottom: 2px solid;
+  border-color: #f0f0f0 #909090 #909090 #f0f0f0;
+  padding: 4px 2px 4px 2px;
+  text-align: left;
+}
+
+div.menuBar a.menuButton {
+  background-color: transparent;
+  border: 1px solid #d0d0d0;
+  color: #000000;
+  cursor: default;
+  left: 0px;
+  margin: 1px;
+  padding: 2px 6px 2px 6px;
+  position: relative;
+  text-decoration: none;
+  top: 0px;
+  z-index: 100;
+}
+
+div.menuBar a.menuButton:hover {
+  background-color: transparent;
+  border-color: #f0f0f0 #909090 #909090 #f0f0f0;
+  color: #000000;
+}
+
+div.menuBar a.menuButtonActive,
+div.menuBar a.menuButtonActive:hover {
+  background-color: #a0a0a0;
+  border-color: #909090 #f0f0f0 #f0f0f0 #909090;
+  color: #ffffff;
+  left: 1px;
+  top: 1px;
+}
+
+div.menu {
+  background-color: #d0d0d0;
+  border: 2px solid;
+  border-color: #f0f0f0 #909090 #909090 #f0f0f0;
+  left: 0px;
+  padding: 0px 1px 1px 0px;
+  position: absolute;
+  top: 0px;
+  visibility: hidden;
+  z-index: 101;
+}
+
+div.menu a.menuItem {
+  color: #000000;
+  cursor: default;
+  display: block;
+  padding: 3px 1em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+div.menu a.menuItem:hover, div.menu a.menuItemHighlight {
+  background-color: #000080;
+  color: #ffffff;
+}
+
+div.menu a.menuItem span.menuItemText {}
+
+div.menu a.menuItem span.menuItemArrow {
+  margin-right: -.75em;
+}
+
+div.menu div.menuItemSep {
+  border-top: 1px solid #909090;
+  border-bottom: 1px solid #f0f0f0;
+  margin: 4px 2px;
+}
