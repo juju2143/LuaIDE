@@ -21,4 +21,5 @@ Credits
 <br/>[LuaZM by Christopher "Kerm Martian" Mitchell](http://cemetech.net/)
 <br/>[WEBspire by Jim Bauwens](http://bwns.be/jim/WEBspire/editor.html)
 <br/>[DHTML stuff by Mike Hall](http://www.brainjar.com/)
+<br/>[Luna by Olivier "ExtendeD" Armand](http://www.ticalc.org/archives/files/fileinfo/441/44113.html)
 <br/>[Official support thread](http://www.omnimaga.org/index.php?topic=15762)

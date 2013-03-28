@@ -17,9 +17,9 @@
 -->
 <html>
 <head>
-<title>Juju's LuaIDE</title>
-<link rel="shortcut icon" href="http://lua-users.org/files/wiki_insecure/lua-std.ico" />
-<link rel="icon" type="image/png" href="http://www.andreas-rozek.de/Lua/Lua-Logo_16x16.png" />
+<title>LuaIDE</title>
+<link rel="shortcut icon" href="lua-std.ico" />
+<link rel="icon" type="image/png" href="Lua-Logo_16x16.png" />
 <link rel="stylesheet" href="luastyle.css" />
 <script language="JavaScript" type="text/javascript" src="termlib.js"></script>
 <script language="JavaScript" type="text/javascript" src="lua+parser.min.js"></script>
@@ -135,6 +135,7 @@ LuaIDE 0.1 Alpha
 <br/><a href="http://bwns.be/jim/WEBspire/editor.html">WEBspire by Jim Bauwens</a>
 <br/><a href="http://www.brainjar.com/">DHTML stuff by Mike Hall</a>
 <br/><a href="http://www.omnimaga.org/index.php?topic=15762">Official support thread</a>
+<br/><a href="http://www.ticalc.org/archives/files/fileinfo/441/44113.html">Luna by Olivier "ExtendeD" Armand</a>
 <br/><a href="https://github.com/juju2143/LuaIDE">Get the source code!</a>
 </div>
 </div>
