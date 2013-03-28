@@ -3,9 +3,10 @@ $luaname = tempnam("/tmp", "lua");
 $tnsname = tempnam("/tmp", "luna");
 
 $handle = fopen($luaname, "w");
-fwrite($handle, $_POST['lua']);
+fwrite($handle, rawurldecode($_POST['lua']));
 fclose($handle);
 
+// Make sure Luna is somewhere in $PATH, like in /usr/local/bin
 shell_exec('luna '.$luaname.' '.$tnsname);
 
 header('Content-Description: File Transfer');
