@@ -47,8 +47,8 @@
 </div>
 <div id="fileMenu" class="menu"
      onmouseover="menuMouseover(event)">
-<a class="menuItem" href="" onclick="if (winList['openWin']) winList['openWin'].open(); return false;">Open</a>
-<a class="menuItem" href="" onclick="saveFile(); return false;">Save</a>
+<a class="menuItem" href="" onclick="if (winList['openWin']) winList['openWin'].open(); return false;">Open...</a>
+<a class="menuItem" href="" onclick="if (winList['saveWin']) winList['saveWin'].open(); return false;">Save as...</a>
 </div>
 <div id="editMenu" class="menu"
      onmouseover="menuMouseover(event)">
@@ -67,7 +67,7 @@
 </div>
 <div id="helpMenu" class="menu"
      onmouseover="menuMouseover(event)">
-<a class="menuItem" href="" onclick="if (winList['aboutWin']) winList['aboutWin'].open(); return false;">About</a>
+<a class="menuItem" href="" onclick="if (winList['aboutWin']) winList['aboutWin'].open(); return false;">About...</a>
 <a class="menuItem" href="http://www.omnimaga.org/index.php?topic=15762" target="_blank">Support Thread</a>
 <a class="menuItem" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=MZFUTCVNQRPL4&lc=CA&item_name=Julosoft&currency_code=CAD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted" target="_blank">Donate</a>
 <a class="menuItem" href="https://github.com/juju2143/LuaIDE" target="_blank">Fork on GitHub</a>
@@ -153,7 +153,23 @@ LuaIDE 0.1 Alpha
 <br/><input type="file" id="fileOpen" /></label>
 <br/><br/><input type="radio" name="openfrom" id="fromurl" value="url" /><label for="fromurl">From URL
 <br/><input type="URL" id="urlOpen" size="60" /></label>
-<p align="center"><button onclick="loadFile();winList['openWin'].close();">OK</button> <button onclick="winList['openWin'].close();">Cancel</button></p>
+<p align="center"><button onclick="loadFile();winList['openWin'].close();">Open</button> <button onclick="winList['openWin'].close();">Cancel</button></p>
+</div>
+</div>
+<div id="saveWin" class="window" style="left:40%;top:40%;width:400px;">
+  <div class="titleBar">
+    <span class="titleBarText">Save as</span>
+    <img class="titleBarButtons" alt="" src="buttons.gif" usemap="#saveWinMap" width="50" height="14" />
+    <map id="saveWinMap" name="saveWinMap">
+      <area shape="rect" coords="0,0,15,13"  href="" alt="" title="Minimize" onclick="this.parentWindow.minimize();return false;" />
+      <area shape="rect" coords="16,0,31,13" href="" alt="" title="Restore"  onclick="this.parentWindow.restore();return false;" />
+      <area shape="rect" coords="34,0,49,13" href="" alt="" title="Close"    onclick="this.parentWindow.close();return false;" />
+    </map>
+  </div>
+<div class="clientArea" style="height:80px;color:black;">
+Filename:
+<br/><input type="text" id="fileSave" size="60" />
+<p align="center"><button onclick="saveFile();winList['openWin'].close();">Save</button> <button onclick="saveFileTNS();winList['openWin'].close();">Save as TNS</button> <button onclick="winList['saveWin'].close();">Cancel</button></p>
 </div>
 </div>
 </body>

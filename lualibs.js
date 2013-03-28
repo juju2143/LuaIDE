@@ -532,11 +532,49 @@ function loadFile()
 	}
 	else if(document.getElementById("fromurl").checked)
 	{
-		lua_load("loadfile(\""+document.getElementById("urlOpen").value+"\")")();
+		if(document.getElementById("urlOpen").value == "")
+			alert("Please type a filename!");
+		else
+			lua_load("loadfile(\""+document.getElementById("urlOpen").value+"\")")();
 	}
+}
+
+function post_to_url(path, params, method) {
+    method = method || "post"; // Set method to post by default, if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+         }
+    }
+
+    form.submit();
 }
 
 function saveFile()
 {
-	location.href = "data:application/octet-stream;charset=UTF-8," + encodeURIComponent(editor.getValue());
+	//location.href = "data:application/octet-stream;charset=UTF-8," + encodeURIComponent(editor.getValue());
+	if(document.getElementById("fileSave").value == "")
+		alert("Please type a filename!");
+	else
+		post_to_url("save.php?f="+encodeURIComponent(document.getElementById("fileSave").value), {"lua":encodeURIComponent(editor.getValue())})
+}
+
+function saveFileTNS()
+{
+	if(document.getElementById("fileSave").value == "")
+		alert("Please type a filename!");
+	else
+		post_to_url("luna.php?f="+encodeURIComponent(document.getElementById("fileSave").value), {"lua":encodeURIComponent(editor.getValue())})
 }
