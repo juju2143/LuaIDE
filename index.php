@@ -58,6 +58,8 @@
 <div id="toolsMenu" class="menu"
      onmouseover="menuMouseover(event)">
 <a class="menuItem" href="" onclick="lua_load(editor.getValue())(); return false;">Run</a>
+<a class="menuItem" href="" onclick="runThreaded(); return false;">Run (threaded)</a>
+<a class="menuItem" href="" onclick="stopThread(); return false;">Stop</a>
 </div>
 <div id="windowMenu" class="menu"
      onmouseover="menuMouseover(event)">

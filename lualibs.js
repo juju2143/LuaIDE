@@ -136,6 +136,7 @@
   var pkeys = new Array();
   var lastKey = 0;
   halt = false;
+  myWorker = null;
   function termHandler() {
      this.newLine();
      var line = this.lineBuffer;
@@ -384,7 +385,8 @@
     }
   };
 
-  lua_core["dofile"] = function(file) {
+  lua_core["dofile"] = function(file,t) {
+    if(t == undefined) t = false;
     term.lock = true;
     try {
       term.send({
@@ -394,7 +396,8 @@
           var response = this.socket;
           if (response.success) {
             try {
-              lua_load(response.responseText)();
+              if(t) runThreaded(response.responseText);
+              else lua_load(response.responseText)();
             } catch(e) {
               this.write(e);
             }
@@ -420,7 +423,18 @@
     }
     else
     {
-      lua_load("dofile(\""+file+"\")")();
+      lua_core["dofile"](file);
+    }
+  }
+  
+  lua_core["runThreaded"] = function (file) {
+    if(file == undefined)
+    {
+    	runThreaded();
+    }
+    else
+    {
+	lua_core["dofile"](file, true);
     }
   }
 
@@ -501,12 +515,14 @@ function doKeyDown(e)
 {
 	lastKey = e.keyCode;
         keys[e.keyCode] = true;
+        myWorker.postMessage({"keys": {"key": e.keyCode, "down": true}});
         e.preventDefault();
 }
 function doKeyUp(e)
 {
 	lastKey = 0;
         keys[e.keyCode] = false;
+        myWorker.postMessage({"keys": {"key": e.keyCode, "down": true}});
         e.preventDefault();
 }
 
@@ -577,4 +593,39 @@ function saveFileTNS()
 		alert("Please type a filename!");
 	else
 		post_to_url("luna.php?f="+encodeURIComponent(document.getElementById("fileSave").value), {"lua":encodeURIComponent(editor.getValue())})
+}
+
+function runThreaded(code)
+{
+	if(code == undefined) code = editor.getValue();
+	if(typeof window.Worker === "function")
+	{
+		if(myWorker !== null){
+			myWorker.terminate();
+		}
+		myWorker = new Worker("luaworker.js");
+
+		myWorker.onmessage = function (oEvent) {
+			if(oEvent.data['output'])
+			{
+				term.write(oEvent.data['output']);
+				console.log("Worker said: "+oEvent.data['output']);
+			}
+			if(oEvent.data[0])
+				lua_libs[oEvent.data[0]][oEvent.data[1]](oEvent.data[2],oEvent.data[3],oEvent.data[4],oEvent.data[5],oEvent.data[6],oEvent.data[7],oEvent.data[8],oEvent.data[9]);
+		};
+		myWorker.postMessage({"code": code});
+	}
+	else
+	{
+		if(confirm("Your browser does not support web workers. This means your browser may crash during infinite loops. Do you still want to continue?"))
+		{
+			lua_load(code)();
+		}
+	}
+}
+
+function stopThread()
+{
+	myWorker.terminate();
 }
