@@ -474,8 +474,8 @@
   }
 
   // http://wiki.inspired-lua.org/class()
-/*  lua_core["class"] = function(prototype) {
-    lua_load("local derived={}
+/*  lua_core["class"] = lua_load("function class(prototype)
+        local derived={}
  	if prototype then
  		function derived.__index(t,key)
  			return rawget(derived,key) or prototype[key]
@@ -495,8 +495,8 @@
  		return instance
  	end
  	setmetatable(derived,derived)
- 	return derived")();
-  }*/
+ 	return derived
+        end");*/
 
   window.onload = function(){
     winInit();
@@ -542,6 +542,7 @@ function loadFile()
 				});
 				reader.readAsText(files[i]);
 			}
+			return true;
 		} else {
 			alert('Sorry, the File APIs are not fully supported in this browser.');
 		}
@@ -551,8 +552,22 @@ function loadFile()
 		if(document.getElementById("urlOpen").value == "")
 			alert("Please type a filename!");
 		else
+		{
 			lua_load("loadfile(\""+document.getElementById("urlOpen").value+"\")")();
+			return true;
+		}
 	}
+	else if(document.getElementById("fromsample").checked)
+	{
+		if(document.getElementById("sampleOpen").value == "")
+			alert("Please select a file!");
+		else
+		{
+			lua_load("loadfile(\""+document.getElementById("sampleOpen").value+"\")")();
+			return true;
+		}
+	}
+	return false;
 }
 
 function post_to_url(path, params, method) {
@@ -581,18 +596,24 @@ function post_to_url(path, params, method) {
 function saveFile()
 {
 	//location.href = "data:application/octet-stream;charset=UTF-8," + encodeURIComponent(editor.getValue());
-	if(document.getElementById("fileSave").value == "")
+	if(document.getElementById("fileSave").value == ""){
 		alert("Please type a filename!");
+		return false;
+	}
 	else
 		post_to_url("save.php?f="+encodeURIComponent(document.getElementById("fileSave").value), {"lua":encodeURIComponent(editor.getValue())})
+	return true;
 }
 
 function saveFileTNS()
 {
-	if(document.getElementById("fileSave").value == "")
+	if(document.getElementById("fileSave").value == "") {
 		alert("Please type a filename!");
+		return false;
+	}
 	else
 		post_to_url("luna.php?f="+encodeURIComponent(document.getElementById("fileSave").value), {"lua":encodeURIComponent(editor.getValue())})
+	return true;
 }
 
 function runThreaded(code)

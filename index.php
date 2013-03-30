@@ -75,7 +75,7 @@
 <a class="menuItem" href="https://github.com/juju2143/LuaIDE" target="_blank">Fork on GitHub</a>
 </div>
 
-<div id="termWin" class="window" style="left:50px;top:150px;width:646px;">
+<div id="termWin" class="window" style="left:25px;top:150px;width:646px;">
   <div class="titleBar">
     <span class="titleBarText">Lua Terminal</span>
     <img class="titleBarButtons" alt="" src="buttons.gif" usemap="#termWinMap" width="50" height="14" />
@@ -87,7 +87,7 @@
   </div>
 <div id="termDiv" class="clientArea"></div>
 </div>
-<div id="dispWin" class="window" style="left:125px;top:225px;width:386px;">
+<div id="dispWin" class="window" style="left:700px;top:150px;width:386px;">
   <div class="titleBar">
     <span class="titleBarText">Display</span>
     <img class="titleBarButtons" alt="" src="buttons.gif" usemap="#dispWinMap" width="50" height="14" />
@@ -100,7 +100,7 @@
 <canvas id="thecanvas" class="clientArea" width="384" height="216">You cannot use the graphic features of this page.</canvas>
 </div>
 <canvas id="thevram" width="384" height="216" style="display: none;"></canvas>
-<div id="editWin" class="window" style="left:75px;top:175px;width:620px;">
+<div id="editWin" class="window" style="left:50px;top:50px;width:620px;">
   <div class="titleBar">
     <span class="titleBarText">Lua Editor</span>
     <img class="titleBarButtons" alt="" src="buttons.gif" usemap="#editWinMap" width="50" height="14" />
@@ -151,12 +151,23 @@ LuaIDE 0.1 Alpha
       <area shape="rect" coords="34,0,49,13" href="" alt="" title="Close"    onclick="this.parentWindow.close();return false;" />
     </map>
   </div>
-<div class="clientArea" style="height:150px;color:black;">
+<div class="clientArea" style="height:250px;color:black;">
 <input type="radio" name="openfrom" id="fromfile" value="file" checked /><label for="fromfile">From file
 <br/><input type="file" id="fileOpen" /></label>
 <br/><br/><input type="radio" name="openfrom" id="fromurl" value="url" /><label for="fromurl">From URL
 <br/><input type="URL" id="urlOpen" size="60" /></label>
-<p align="center"><button onclick="loadFile();winList['openWin'].close();">Open</button> <button onclick="winList['openWin'].close();">Cancel</button></p>
+<br/><br/><input type="radio" name="openfrom" id="fromsample" value="sample" /><label for="fromsample">Samples
+<br/><select id="sampleOpen" size="4">
+<?php
+$dir = scandir(".");
+foreach($dir as $file)
+{
+	if(pathinfo($file, PATHINFO_EXTENSION) == "lua")
+		echo "<option value=\"http://juju2143.ca/lua/".$file."\">".$file."</option>\n";
+}
+?>
+</select></label>
+<p align="center"><button onclick="if(loadFile())winList['openWin'].close();">Open</button> <button onclick="winList['openWin'].close();">Cancel</button></p>
 </div>
 </div>
 <div id="saveWin" class="window" style="left:40%;top:40%;width:400px;">
@@ -172,7 +183,7 @@ LuaIDE 0.1 Alpha
 <div class="clientArea" style="height:80px;color:black;">
 Filename:
 <br/><input type="text" id="fileSave" size="60" />
-<p align="center"><button onclick="saveFile();winList['openWin'].close();">Save</button> <button onclick="saveFileTNS();winList['openWin'].close();">Save as TNS</button> <button onclick="winList['saveWin'].close();">Cancel</button></p>
+<p align="center"><button onclick="if(saveFile())winList['saveWin'].close();">Save</button> <button onclick="if(saveFileTNS())winList['saveWin'].close();">Save as TNS</button> <button onclick="winList['saveWin'].close();">Cancel</button></p>
 </div>
 </div>
 </body>

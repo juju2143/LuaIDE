@@ -1,4 +1,34 @@
-  var colors = {
+/*
+    LuaIDE - A Lua IDE made in HTML5
+    Copyright (C) 2013 Julien "Juju" Savard
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+function term(){}
+term.prototype.write = function(a,b)
+{
+	postMessage({"output": a});
+}
+term.prototype.newLine = function()
+{
+	postMessage({"output": "\n"});
+}
+
+importScripts("../lua+parser.js");
+
+var colors = {
     "aqua": 0x07FF,
     "azure": 0xF7FF,
     "beige": 0xF7BB,
@@ -92,23 +122,23 @@
     "white": 0xFFFF,
     "yellow": 0xFFE0,
     "yellowgreen": 0x9E66,
-  };
-  
-keys = new Array();
-pkeys = new Array();
-  
+};
 
-function term(){}
-term.prototype.write = function(a,b)
-{
-	postMessage({"output": a});
+var map = {
+    79:112,69:113,59:114,49:115,39:116,29:117, // [F1]   [F2]   [F3]  [F4]  [F5]   [F6]
+    78:16, 68:17, 58:20, 48:36, 38:37, 28:38,  // [SHIFT][OPTN] [VARS][MENU][LEFT] [UP]
+    77:18, 67:0,  57:0,  47:0,  37:40, 27:39,  // [ALPHA][x^2]  [^]   [EXIT][DOWN] [RIGHT]
+    76:0,  66:0,  56:0,  46:0,  36:0,  26:0,   // [X/O/T][log]  [ln]  [sin] [cos]  [tan]
+    75:0,  65:0,  55:0,  45:0,  35:188,25:187, // [a b/c][F<->D][(]   [)]   [,]    [->]
+    74:103,64:104,54:105,44:46, 10:27,         // [7]    [8]    [9]   [DEL] [AC/ON]
+    73:100,63:101,53:102,43:106,33:111,        // [4]    [5]    [6]   [*]   [/]
+    72:97, 62:98, 52:99, 42:107,32:109,        // [1]    [2]    [3]   [+]   [-]
+    71:96, 61:110,51:0,  41:189,31:13,         // [0]    [.]    [EXP] [(-)] [EXE]
 }
-term.prototype.newLine = function()
-{
-	postMessage({"output": "\n"});
-}
-
-importScripts("lua+parser.min.js");
+  
+var keys = new Array();
+var pkeys = new Array();
+var lastKey = 0;
 
 lua_core["print"] = function(a)
 {
@@ -192,6 +222,7 @@ onmessage = function(event) {
 	if(event.data["keys"])
 	{
 		keys[event.data["keys"]["key"]] = event.data["keys"]["down"];
+		lastKey = event.data["keys"]["key"];
 	}
 }
 
